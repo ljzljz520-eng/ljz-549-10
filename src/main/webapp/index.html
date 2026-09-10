@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教室空闲状态查询</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="page">
+    <header class="page-header">
+        <h1>教室空闲状态查询</h1>
+        <p class="subtitle">选择教学楼、日期和节次，查询当前可使用的空闲教室</p>
+    </header>
+
+    <main>
+        <!-- 查询条件区 -->
+        <section class="card query-card" aria-label="查询条件">
+            <form id="queryForm" novalidate>
+                <div class="form-row">
+                    <div class="form-item">
+                        <label for="building">教学楼 <span class="required">*</span></label>
+                        <select id="building" name="building">
+                            <option value="">请选择教学楼</option>
+                            <!-- 选项由 app.js 渲染，保证与后端一致 -->
+                        </select>
+                    </div>
+
+                    <div class="form-item">
+                        <label for="date">日期 <span class="required">*</span></label>
+                        <input type="date" id="date" name="date">
+                    </div>
+
+                    <div class="form-item">
+                        <label for="period">节次 <span class="required">*</span></label>
+                        <select id="period" name="period">
+                            <option value="">请选择节次</option>
+                            <option value="1">第1节（08:00-08:45）</option>
+                            <option value="2">第2节（08:55-09:40）</option>
+                            <option value="3">第3节（10:00-10:45）</option>
+                            <option value="4">第4节（10:55-11:40）</option>
+                            <option value="5">第5节（13:30-14:15）</option>
+                            <option value="6">第6节（14:25-15:10）</option>
+                            <option value="7">第7节（15:30-16:15）</option>
+                            <option value="8">第8节（16:25-17:10）</option>
+                            <option value="9">第9节（18:30-19:15）</option>
+                            <option value="10">第10节（19:25-20:10）</option>
+                        </select>
+                    </div>
+
+                    <div class="form-item form-action">
+                        <button type="submit" id="queryBtn" class="btn-primary">查询空闲教室</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <!-- 结果区 -->
+        <section class="card result-card" aria-label="查询结果">
+            <div id="loadingBox" class="state-box" hidden>
+                <span class="spinner" aria-hidden="true"></span>
+                <p>正在查询，请稍候…</p>
+            </div>
+
+            <div id="emptyBox" class="state-box">
+                <p class="state-icon" aria-hidden="true">&#128269;</p>
+                <p>请选择查询条件后点击“查询空闲教室”</p>
+            </div>
+
+            <div id="messageBox" class="state-box" hidden></div>
+
+            <div id="resultBox" hidden>
+                <div class="result-summary">
+                    <h2 id="resultTitle">空闲教室列表</h2>
+                    <p id="resultMeta" class="result-meta"></p>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th style="width:120px;">教室编号</th>
+                            <th style="width:120px;">所在教学楼</th>
+                            <th style="width:100px;">容纳人数</th>
+                            <th>教室类型</th>
+                        </tr>
+                        </thead>
+                        <tbody id="resultTbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="page-footer">
+        <small>原生 HTML / CSS / JavaScript 实现 · 查询接口 10 秒超时自动中断</small>
+    </footer>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
